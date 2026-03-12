@@ -1,10 +1,9 @@
 import { Router, Request, Response } from 'express';
 import * as userService from '../services/user.service.js'; 
-import { CreateUserSchema, UpdateUserBody, UpdateUserSchema } from '../types/user.types.js';
+import { CreateUserSchema, UpdateUserSchema } from '../types/user.types.js';
 
 const router = Router();
 
-// need to add validation,
 
 router.get('/', async (req: Request, res: Response) => {
 
@@ -51,8 +50,9 @@ router.post('/', async (req: Request, res: Response) => {
       errors: result.error.issues
     });
   }
+    const {name,email} = result.data ;
     try {
-        await userService.createUser(req.body.name, req.body.email);
+        await userService.createUser(name, email);
         res.status(201).json({ message: 'Create user' });
     } catch (error) {
         res.status(500).json({ message: 'Error creating user' });
@@ -77,14 +77,11 @@ router.put('/:id', async (req: Request, res: Response) => {
         });
       }
 
-    const {name,email} = req.body as UpdateUserBody;
+    const {name,email} = result.data;
 
     try {
-        if (isNaN(id)) {
-            return res.status(400).json({ message: 'Invalid user ID' });
-        }
-
-        await userService.updateUser(id, req.body.name, req.body.email);
+        
+        await userService.updateUser(id, name, email);
 
         res.json({ message: `Update user ${id}` });
 

@@ -26,7 +26,7 @@ export async function createUser(name: string, email: string) {
     });
 }
 
-export async function updateUser(id: number, name: string, email: string) {
+export async function updateUser(id: number, name: string | undefined, email: string | undefined) {
     return prisma.user.update({
         where: { id },
         data: { name, email },
