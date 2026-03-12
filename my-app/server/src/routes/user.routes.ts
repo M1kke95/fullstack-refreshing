@@ -12,9 +12,11 @@ router.get('/', async (req: Request, res: Response) => {
 
 
 router.get('/:id', async (req: Request, res: Response) => {
+
     const id = Number(req.params.id);
 
-    if (isNaN(id)) {
+    try {
+        if (isNaN(id)) {
         return res.status(400).json({ message: 'Invalid user ID' });
     }
 
@@ -24,36 +26,57 @@ router.get('/:id', async (req: Request, res: Response) => {
     }
 
     res.json({ user, message: `Get user ${id}` });
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving user' });
+    }
+    
 });
 
 
 router.post('/', async (req: Request, res: Response) => {
-    await userService.createUser(req.body.name, req.body.email);
-    res.status(201).json({ message: 'Create user' });
+
+    try {
+        await userService.createUser(req.body.name, req.body.email);
+        res.status(201).json({ message: 'Create user' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating user' });
+    }
+    
 });
 
 
 router.put('/:id', async (req: Request, res: Response) => {
-    const  id  = Number(req.params.id);
+    const id = Number(req.params.id);
 
-    if (isNaN(id)) {
-        return res.status(400).json({ message: 'Invalid user ID' });
+    try {
+        if (isNaN(id)) {
+            return res.status(400).json({ message: 'Invalid user ID' });
+        }
+
+        await userService.updateUser(id, req.body.name, req.body.email);
+
+        res.json({ message: `Update user ${id}` });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating user' });
     }
-
-    await userService.updateUser(id, req.body.name, req.body.email);
-    res.json({ message: `Update user ${id}` });
 });
 
 
 router.delete('/:id', async (req: Request, res: Response) => {
     const  id  = Number(req.params.id);
 
-    if (isNaN(id)) {
+    try {
+        if (isNaN(id)) {
         return res.status(400).json({ message: 'Invalid user ID' });
     }
 
     await userService.deleteUser(Number(id));
     res.json({ message: `Delete user ${id}` });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting user' });   
+    }
+    
 });
 
 export default router;
