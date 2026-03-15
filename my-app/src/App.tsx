@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { User } from './type/user'
-import UserList from './components/userlist'
+import UserList from './components/userList'
 import { fetchUsers } from './api/userApi'
-
 import './App.css'
 import CreateUserForm from './components/createUserForm'
 
