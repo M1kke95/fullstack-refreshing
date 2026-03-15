@@ -1,8 +1,6 @@
-import type { User } from "../type/user";
+import type { UserListProps } from "../type/user";
 
-type UserListProps = {
-    users: User[];
-}
+
 
 export default function UserList({ users }: UserListProps) {
     return (
