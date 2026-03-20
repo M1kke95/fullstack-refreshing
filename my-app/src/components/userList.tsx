@@ -9,8 +9,11 @@ export default function UserList({ users, onDelete }: UserListProps) {
                 <div key={user.id}>
                     <p>{user.name}</p>
                     <p>{user.email}</p>
-                    <button onClick={() => onDelete?.(user.id)}>
-                        Delete
+                    <button onClick={() => {
+                    console.log("Clicked delete:", user.id);
+                    onDelete?.(user.id);
+                    }}>
+                    Delete
                     </button>
                 </div>
             ))}
