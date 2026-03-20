@@ -11,6 +11,7 @@ export type CreateUserFormProps = {
 export type UserListProps = {
   users: User[]
   onDelete?: (id: number) => void;
+  onUpdate?: (id: number, name: string, email: string) => void;
 }
 
 export type UserItemProps = {
