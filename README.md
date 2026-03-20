@@ -31,13 +31,16 @@ git clone <repo-url>
 cd my_Brochure/my-app
 ```
 
-installer avhengigheter:
+### Installer avhengigheter:
+```bash
 npm install
 cd server
 npm install
-
-start prosjektet fra my-app mappen:
+``` 
+###start prosjektet fra my-app mappen:
+```bash
 npm start
+```
 
 Prosjektstruktur
 my-app/
