@@ -42,18 +42,19 @@ npm install
 npm start
 ```
 
-Prosjektstruktur
+##Prosjektstruktur
+```
 my-app/
 ├─ src/           # React/Vite frontend
 ├─ server/        # Express + Prisma backend
 ├─ package.json   # scripts for dev og start
-
-API Endpoints
-
+```
+##API Endpoints
+```
 GET /users – hent alle brukere
 GET /users/:id – hent en bruker
 POST /users – opprett ny bruker
 PUT /users/:id – oppdater bruker
 DELETE /users/:id – slett bruker
-
+```
 
