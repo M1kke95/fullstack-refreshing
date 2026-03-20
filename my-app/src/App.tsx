@@ -24,8 +24,8 @@ export default function App() {
   return (
     <>
       <h1>Users</h1>
-      <UserList users={users} onDelete={handleDeleteUser} />
       <CreateUserForm onUsersCreated={loadUsers} />
+      <UserList users={users} onDelete={handleDeleteUser} />
     </>
   )
 }

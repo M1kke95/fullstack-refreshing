@@ -20,18 +20,18 @@ export default function CreateUserForm({ onUsersCreated }: CreateUserFormProps) 
         onUsersCreated();
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <input
+        <form onSubmit={handleSubmit} className="create-user-form">
+        <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Name"
-            />
-            <input
+        />
+        <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
-            />
-            <button type="submit">Create User</button>
+        />
+        <button type="submit">Create User</button>
         </form>
     );
 
