@@ -37,19 +37,22 @@ npm install
 cd server
 npm install
 ``` 
-###start prosjektet fra my-app mappen:
+### Start prosjektet fra my-app mappen:
 ```bash
 npm start
 ```
 
-##Prosjektstruktur
+---
+### Prosjektstruktur
 ```
 my-app/
 ├─ src/           # React/Vite frontend
 ├─ server/        # Express + Prisma backend
 ├─ package.json   # scripts for dev og start
 ```
-##API Endpoints
+---
+
+### API Endpoints
 ```
 GET /users – hent alle brukere
 GET /users/:id – hent en bruker
