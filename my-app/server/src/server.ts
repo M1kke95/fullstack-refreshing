@@ -35,6 +35,21 @@ app.delete("/users/:id", async (req, res) => {
   }
 });
 
+app.put("/users/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, email } = req.body;
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: Number(id) },
+      data: { name, email },
+    });
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating user", error });
+  }
+});
+
 app.get("/users", async (_req, res) => res.json(await prisma.user.findMany()));
 
 app.listen(3000, () => console.log("API running on http://localhost:3000"));

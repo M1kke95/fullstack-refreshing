@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { User } from './type/user'
 import UserList from './components/userList'
-import { deleteUser, fetchUsers } from './api/userApi'
+import { deleteUser, fetchUsers, updateUser } from './api/userApi'
 import './App.css'
 import CreateUserForm from './components/createUserForm'
 
@@ -21,11 +21,17 @@ export default function App() {
     await deleteUser(id);
     loadUsers();
   }
+
+  const handleUpdateUser = async (id: number, name: string, email: string) => {
+  await updateUser(id, name, email);
+  loadUsers(); 
+};
+
   return (
     <>
       <h1>Users</h1>
       <CreateUserForm onUsersCreated={loadUsers} />
-      <UserList users={users} onDelete={handleDeleteUser} />
+      <UserList users={users} onDelete={handleDeleteUser} onUpdate={handleUpdateUser} />
     </>
   )
 }
