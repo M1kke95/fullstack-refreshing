@@ -1,13 +1,10 @@
 # Fullstack CRUD App
-
 Dette fullstack prosjektet er laget med **React (vite)** i frontend og **node.js, express og prisma** backend.  
 Formålet med dette prosjektet var oppfriskning og demonstrere **CRUD funksjonalitet**.  
 CRUD funksjonaliteten inneholder **opprette, lese, endre og slette brukere**.
 
 ---
-
 ## Funksjoner
-
 - Viser alle brukere i en liste med bruk av **User cards**  
 - Opprette nye brukere med et enkelt skjema  
 - Oppdatere eksisterende brukere  
@@ -16,7 +13,6 @@ CRUD funksjonaliteten inneholder **opprette, lese, endre og slette brukere**.
 ---
 
 ## Teknologier
-
 | Frontend | Backend |
 |----------|---------|
 | React, Vite, typescript | nodeJs, express, prisma, sqlite |
@@ -27,18 +23,26 @@ CRUD funksjonaliteten inneholder **opprette, lese, endre og slette brukere**.
 
 ### Klon repo
 ```bash
-git clone <repo-url>
+git clone 
 cd my_Brochure/my-app
 ```
 
-### Installer avhengigheter:
+### Installer avhengigheter
 ```bash
 npm install
 cd server
 npm install
-``` 
-### Start prosjektet fra my-app mappen:
+```
+
+### Generer Prisma og kjør migrasjoner
 ```bash
+npx prisma generate
+npx prisma migrate dev
+```
+
+### Start prosjektet fra my-app mappen
+```bash
+cd ..
 npm start
 ```
 
