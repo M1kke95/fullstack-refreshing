@@ -14,7 +14,7 @@ export default function App() {
   
   const loadUsers = async () => {
     const data = await fetchUsers();
-    setUsers(data);
+    setUsers(data.users);
   }
 
   const handleDeleteUser = async (id: number) => {
