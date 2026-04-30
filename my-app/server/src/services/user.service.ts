@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import {prisma} from "../server.js";
 
-const prisma = new PrismaClient();
 
 export async function getAllUsers() {
 
