@@ -1,9 +1,11 @@
 import { Router, Request, Response } from 'express';
 import * as userService from '../services/user.service.js'; 
 import { CreateUserSchema, UpdateUserSchema } from '../types/user.types.js';
+import { parseId } from '../utils/parseId.js';
 
 const router = Router();
 
+//TODO: Duplicate code in routes and services need to be refactored to avoid code duplication and improve maintainability.
 
 router.get('/', async (req: Request, res: Response) => {
 
@@ -11,6 +13,7 @@ router.get('/', async (req: Request, res: Response) => {
         const users = await userService.getAllUsers();
         res.json({ users, message: 'Get all users' });
     } catch (error) {
+        console.error(error)
         res.status(500).json({ message: 'Error retrieving users' });
     }
     
@@ -19,23 +22,26 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.get('/:id', async (req: Request, res: Response) => {
 
-    const id = Number(req.params.id);
-    
+    const id = parseId(req.params.id);
 
-    try {
-        if (isNaN(id)) {
+    if (id === null) {
         return res.status(400).json({ message: 'Invalid user ID' });
+
     }
 
+    try {
     const user = await userService.getUserById(id);
+
     if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'User not found' });
     }
 
     res.json({ user, message: `Get user ${id}` });
-    } catch (error) {
-        res.status(500).json({ message: 'Error retrieving user' });
-    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving user' });
+  }
+
     
 });
 
@@ -50,11 +56,14 @@ router.post('/', async (req: Request, res: Response) => {
       errors: result.error.issues
     });
   }
-    const {name,email} = result.data ;
+    const { name, email } = result.data ;
+
     try {
         await userService.createUser(name, email);
-        res.status(201).json({ message: 'Create user' });
+        res.status(201).json({ message: 'User created', user: { name, email } });
+
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error creating user' });
     }
     
@@ -62,9 +71,9 @@ router.post('/', async (req: Request, res: Response) => {
 
 
 router.put('/:id', async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
+    const id = parseId(req.params.id);
 
-    if (isNaN(id)) {
+    if (id === null) {
         return res.status(400).json({ message: 'Invalid user ID' });
     }
 
@@ -77,31 +86,40 @@ router.put('/:id', async (req: Request, res: Response) => {
         });
       }
 
-    const {name,email} = result.data;
+    const { name, email } = result.data;
 
     try {
         
         await userService.updateUser(id, name, email);
 
-        res.json({ message: `Update user ${id}` });
+        res.json({
+        message: `User ${id} updated`,
+        updatedFields: { name, email }
+    });
 
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error updating user' });
     }
 });
 
 
 router.delete('/:id', async (req: Request, res: Response) => {
-    const  id  = Number(req.params.id);
+    const  id  = parseId(req.params.id);
 
-    try {
-        if (isNaN(id)) {
+    if (id === null) {
         return res.status(400).json({ message: 'Invalid user ID' });
     }
 
-    await userService.deleteUser(Number(id));
-    res.json({ message: `Delete user ${id}` });
+    try {
+        await userService.deleteUser(id);
+        res.json({
+            message: `User ${id} deleted`
+    });
+
+    
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error deleting user' });   
     }
     
