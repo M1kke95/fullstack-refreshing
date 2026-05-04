@@ -3,6 +3,7 @@ import * as userService from '../services/user.service.js';
 import { CreateUserSchema, UpdateUserSchema } from '../types/user.types.js';
 import { parseId } from '../utils/parseId.js';
 import { asyncWrapper } from '../utils/asyncWrapper.js';
+import { validateSchema } from '../utils/validateSchema.js';
 
 const router = Router();
 
@@ -42,18 +43,9 @@ router.get('/:id', asyncWrapper( async (req: Request, res: Response) => {
 }));
 
 
-router.post('/', asyncWrapper( async (req: Request, res: Response) => {
+router.post('/', validateSchema(CreateUserSchema), asyncWrapper( async (req: Request, res: Response) => {
 
-    const result = CreateUserSchema.safeParse(req.body);
-
-    if (!result.success) {  
-    return res.status(400).json({
-      message: "Invalid input",
-      errors: result.error.issues
-    });
-
-  }
-    const { name, email } = result.data ;
+    const { name, email } = req.body;
 
     await userService.createUser(name, email);
 
@@ -72,23 +64,15 @@ router.post('/', asyncWrapper( async (req: Request, res: Response) => {
 }));
 
 
-router.put('/:id', asyncWrapper( async (req: Request, res: Response) => {
+router.put('/:id',validateSchema(UpdateUserSchema), asyncWrapper( async (req: Request, res: Response) => {
     const id = parseId(req.params.id);
 
     if (id === null) {
         return res.status(400).json({ message: 'Invalid user ID' });
     }
 
-    const result = UpdateUserSchema.safeParse(req.body);
 
-    if (!result.success) {  
-        return res.status(400).json({
-          message: "Invalid input",
-          errors: result.error.issues
-        });
-      }
-
-    const { name, email } = result.data;
+    const { name, email } = req.body;
  
     await userService.updateUser(id, name, email);
 
