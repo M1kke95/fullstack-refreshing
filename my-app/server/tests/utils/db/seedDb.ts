@@ -1,6 +1,7 @@
-import {prisma} from "../../../../server/src/db/prisma";
+import {prisma} from "../../../src/db/prisma";
 
 export async function seedDb() {
+    console.log("Seeding database...");
   const users = [
     { name: "Alice", email: "alice@test.com" },
     { name: "Bob", email: "bob@test.com" },

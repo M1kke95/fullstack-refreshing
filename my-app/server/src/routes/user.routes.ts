@@ -27,6 +27,7 @@ router.get('/:id', validateId, asyncWrapper( async (req: Request, res: Response)
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
+      
     }
 
     return res.json({ user, message: `Get user ${id}` });
@@ -35,7 +36,7 @@ router.get('/:id', validateId, asyncWrapper( async (req: Request, res: Response)
     //return res.status(500).json({ message: 'Error retrieving user' });
   
 
-    
+
 }));
 
 

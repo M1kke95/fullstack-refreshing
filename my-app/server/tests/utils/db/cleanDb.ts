@@ -1,6 +1,6 @@
-import {prisma} from "../../../../server/src/db/prisma";
+import {prisma} from "../../../src/db/prisma";
 
-export const cleanDb = async () => {
+export async function cleanDb() {
     await prisma.task.deleteMany();
     await prisma.user.deleteMany();
 }
