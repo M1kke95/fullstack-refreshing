@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import request from "supertest";
 import app from "../src/app.js";
-import { array } from "zod";
+
 
 describe("health", () => {
   it("should return 200", async () => {
