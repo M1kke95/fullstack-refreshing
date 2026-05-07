@@ -31,3 +31,7 @@ describe("GET /users/:id", () => {
     });
   });
 });
+
+//todo test for finding user by id and returning the user data
+
+//todo test for deleting a user and returning a success message && test for deleting a user that does not exist and returning a 404 error
