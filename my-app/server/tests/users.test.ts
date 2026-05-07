@@ -18,13 +18,12 @@ describe("users", () => {
 
   expect(res.status).toBe(200);
   expect(Array.isArray(res.body.users)).toBe(true);
-  expect(res.body.users).toEqual([]);
+  expect(res.body.users.length).toEqual(2);
 })});
-
 
 describe("GET /users/:id", () => {
   it("should return 404 if user does not exist", async () => {
-    const res = await request(app).get("/users/999999");
+    const res = await request(app).get("/users/35");
 
     expect(res.status).toBe(404);
     expect(res.body).toEqual({
