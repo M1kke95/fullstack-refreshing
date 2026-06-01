@@ -13,7 +13,6 @@ router.get('/', asyncWrapper( async (req: Request, res: Response) => {
 
         const users = await userService.getAllUsers();
         return res.json({ users, message: 'Get all users' });
-        //return res.status(500).json({ message: 'Error retrieving users' });
 
     
 }));
@@ -32,8 +31,6 @@ router.get('/:id', validateId, asyncWrapper( async (req: Request, res: Response)
 
     return res.json({ user, message: `Get user ${id}` });
   
-    //console.error(error);
-    //return res.status(500).json({ message: 'Error retrieving user' });
   
 
 
@@ -44,19 +41,11 @@ router.post('/', validateSchema(CreateUserSchema), asyncWrapper( async (req: Req
 
     const { name, email } = req.body;
 
-    await userService.createUser(name, email);
+    const user = await userService.createUser(name, email);
 
-     return res.status(201).json({ message: 'User created', user: { name, email } });
+     return res.status(201).json({ message: 'User created', user });
 
-    
-        /*if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code === 'P2002') {
-                return res.status(409).json({ message: 'Email already exists' });
-            }
-        }
-        console.error(error);
-        return res.status(500).json({ message: 'Error creating user' });
-    */
+   
     
 }));
 
@@ -66,17 +55,15 @@ router.put('/:id', validateId, validateSchema(UpdateUserSchema), asyncWrapper( a
 
     const { name, email } = req.body;
  
-    await userService.updateUser(id, name, email);
+    const updatedUser = await userService.updateUser(id, name, email);
 
     return res.json({
     message: `User ${id} updated`,
-    updatedFields: { name, email }
+    updatedFields: { name, email },
+    user: updatedUser
     });
 
-/*
-        console.error(error);
-        return res.status(500).json({ message: 'Error updating user' });
-    */
+
 }));
 
 
@@ -89,11 +76,7 @@ router.delete('/:id', validateId, asyncWrapper( async (req: Request, res: Respon
             message: `User ${id} deleted`
         });
     
-    /*
-    console.error(error);
-    return res.status(500).json({ message: 'Error deleting user' });   
-   */
-    
+ 
 }));
 
 export default router;
