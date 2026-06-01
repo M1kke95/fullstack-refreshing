@@ -7,7 +7,6 @@ import { validateId } from '../utils/validateId.js';
 
 const router = Router();
 
-//TODO: implement global error handling
 
 router.get('/', asyncWrapper( async (req: Request, res: Response) => {
 
