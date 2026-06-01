@@ -15,6 +15,11 @@ export type UserListProps = {
 }
 
 export type UserItemProps = {
-  user: User
-  onDelete?: (id: number) => void
+  user: User;
+  onDelete?: (id: number) => void;
+  onUpdate?: (
+    id: number,
+    name: string,
+    email: string
+  ) => void;
 }
