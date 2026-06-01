@@ -3,7 +3,7 @@ import UserItem from "./user";
 
 
 
-export default function UserList({ users, onDelete, onUpdate }: UserListProps) {
+export default function UserList({ users, onDelete, onUpdate, onRefresh }: UserListProps) {
   return (
     <div className="user-list">
       {users.map((user) => (
@@ -12,6 +12,7 @@ export default function UserList({ users, onDelete, onUpdate }: UserListProps) {
           user={user}
           onDelete={onDelete}
           onUpdate={onUpdate}
+          onRefresh={onRefresh}
         />
       ))}
     </div>

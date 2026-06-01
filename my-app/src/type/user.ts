@@ -1,7 +1,15 @@
+export type Task = {
+  id: number;
+  taskname: string;
+  description: string;
+  userId: number;
+};
+
 export type User = {
     id: number;
     name: string;
     email: string;
+    tasks: Task[];
 };
 
 export type CreateUserFormProps = {
@@ -12,6 +20,7 @@ export type UserListProps = {
   users: User[]
   onDelete?: (id: number) => void;
   onUpdate?: (id: number, name: string, email: string) => void;
+  onRefresh: () => Promise<void>;
 }
 
 export type UserItemProps = {
@@ -22,4 +31,6 @@ export type UserItemProps = {
     name: string,
     email: string
   ) => void;
+  onRefresh: () => Promise<void>;
 }
+

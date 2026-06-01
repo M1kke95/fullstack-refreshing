@@ -31,7 +31,7 @@ export default function App() {
     <>
       <h1>Users</h1>
       <CreateUserForm onUsersCreated={loadUsers} />
-      <UserList users={users} onDelete={handleDeleteUser} onUpdate={handleUpdateUser} />
+      <UserList users={users} onDelete={handleDeleteUser} onUpdate={handleUpdateUser} onRefresh={loadUsers} />
     </>
   )
 }
